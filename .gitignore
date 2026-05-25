@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Logs & local tooling ###
+*.log
+jmeter.log
+hs_err_pid*.log
+
+### Accidental Node artifacts (backend-only repo) ###
+package-lock.json
+node_modules/

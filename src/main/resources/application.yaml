@@ -1,17 +1,23 @@
 server:
-  port: 8081
+  port: ${SERVER_PORT:8081}
 spring:
   application:
-    name: hmdp
+    name: vdp
+  cloud:
+    sentinel:
+      eager: true
+      transport:
+        dashboard: ${SENTINEL_DASHBOARD:127.0.0.1:8080}
+        port: 8719
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/hmdp?useSSL=false&serverTimezone=UTC
-    username: root
-    password: 123
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: ${SPRING_DATASOURCE_URL:jdbc:sqlserver://localhost:1433;databaseName=db1;encrypt=true;trustServerCertificate=true;}
+    username: ${SPRING_DATASOURCE_USERNAME:sa}
+    password: ${SPRING_DATASOURCE_PASSWORD:123456}
   redis:
-    host: 192.168.150.101
-    port: 6379
-    password: 123321
+    host: ${SPRING_REDIS_HOST:127.0.0.1}
+    port: ${SPRING_REDIS_PORT:6379}
+    password: ${SPRING_REDIS_PASSWORD:root}
     lettuce:
       pool:
         max-active: 10
@@ -21,9 +27,7 @@ spring:
   jackson:
     default-property-inclusion: non_null # JSON处理时忽略非空字段
 mybatis-plus:
-  type-aliases-package: com.hmdp.entity # 别名扫描包
+  type-aliases-package: com.vdp.entity # 别名扫描包
 logging:
   level:
-    com.hmdp: debug
-  pattern:
-    dateformat: mm:ss.SSS
+    com.pingo: debug
